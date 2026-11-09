@@ -1,0 +1,2 @@
+## MailGuard-AI system
+A web application that analyzes user-submitted emails to detect whether they are SAFE, SPAM, PROMOTIONAL, or PHISHING. Along with the classification result, the system generates a Risk Score, an AI Explanation, a list of Suspicious Words, and Safety Recommendations
