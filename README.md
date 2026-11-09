@@ -129,9 +129,9 @@ sequenceDiagram
 
 | Member | Role | Owns | GitHub |
 |---|---|---|---|
-| **Member 1** – _Full Name_ | Frontend Developer | `frontend/` – all pages, JavaScript, charts, API integration | [@username](https://github.com/username) |
-| **Member 2** – _Full Name_ | Backend Developer | `backend/` – REST APIs, MySQL, auth, AI integration, Postman | [@username](https://github.com/username) |
-| **Member 3** – _Full Name_ | AI Developer | `ai-service/` – classifier, prompt, fallback, tests | [@username](https://github.com/username) |
+| **Member 1** – Samrudhhi Pawar | Frontend Developer | `frontend/` – all pages, JavaScript, charts, API integration | [@username](https://github.com/username) |
+| **Member 2** – Vaishnav Salunke | Backend Developer | `backend/` – REST APIs, MySQL, auth, AI integration, Postman | [@username](https://github.com/username) |
+| **Member 3** – Shantanu Pawar | AI Developer | `ai-service/` – classifier, prompt, fallback, tests | [@username](https://github.com/username) |
 
 > ✏️ Replace the placeholder names and GitHub handles above.
 
@@ -329,7 +329,7 @@ Register → Login → Email Analyzer → paste a [demo email](#-demo-emails) �
 
 ## 📡 API Reference
 
-**Backend base URL:** `http://localhost:8080`
+**Backend base URL:** `http://localhost:8081`
 Protected endpoints need the header `Authorization: Bearer <token>`.
 
 | Method | Endpoint | Auth | Description | Success | Errors |
