@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MailGuard AI - Backend
 
 Java 17 + Spring Boot 3 + MySQL REST API.
@@ -160,3 +161,7 @@ src/main/java/com/mailguard/
   security/    JwtUtil, AuthInterceptor
   exception/   ApiException, GlobalExceptionHandler
 ```
+=======
+## MailGuard-AI system
+A web application that analyzes user-submitted emails to detect whether they are SAFE, SPAM, PROMOTIONAL, or PHISHING. Along with the classification result, the system generates a Risk Score, an AI Explanation, a list of Suspicious Words, and Safety Recommendations
+>>>>>>> ccacbfee4bc71f7918a0a2df758d291b685b9d53
