@@ -1,4 +1,5 @@
 import logging
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
@@ -11,6 +12,13 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("mailguard")
 
 app = FastAPI(title="MailGuard AI Service")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # testing only
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")

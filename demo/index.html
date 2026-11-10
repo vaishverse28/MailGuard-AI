@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MailGuard AI - Demo</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Segoe UI, Arial, sans-serif; background: #f3f4f6; margin: 0; padding: 24px; color: #1f2937; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { margin: 0 0 4px; }
+  .sub { color: #6b7280; margin-bottom: 20px; }
+  .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-bottom: 20px; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; }
+  input, textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font: inherit; }
+  textarea { min-height: 130px; resize: vertical; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  button { padding: 10px 16px; border: 0; border-radius: 8px; cursor: pointer; font: inherit; font-weight: 600; }
+  #analyzeBtn { background: #2563eb; color: #fff; margin-top: 16px; }
+  #analyzeBtn:disabled { background: #93c5fd; cursor: wait; }
+  .sample { background: #e5e7eb; color: #1f2937; font-weight: 500; font-size: 14px; }
+  .badge { display: inline-block; padding: 6px 16px; border-radius: 999px; color: #fff; font-weight: 700; font-size: 18px; }
+  .SAFE { background: #16a34a; } .PROMOTIONAL { background: #d97706; }
+  .SPAM { background: #ea580c; } .PHISHING { background: #dc2626; }
+  .bar { height: 14px; background: #e5e7eb; border-radius: 999px; overflow: hidden; margin: 10px 0 4px; }
+  .fill { height: 100%; width: 0; transition: width .5s; }
+  .chips span { display: inline-block; background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 999px; margin: 4px 6px 0 0; font-size: 14px; }
+  .err { background: #fef2f2; color: #991b1b; padding: 12px; border-radius: 8px; }
+  .hidden { display: none; }
+  h3 { margin: 18px 0 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>MailGuard AI</h1>
+  <div class="sub">Paste an email to check whether it is safe, spam, promotional or phishing.</div>
+
+  <div class="card">
+    <div><strong>Try a sample:</strong></div>
+    <div class="row" id="samples"></div>
+
+    <label for="sender">Sender email</label>
+    <input id="sender" placeholder="support@paypal-security.com">
+    <label for="subject">Subject</label>
+    <input id="subject" placeholder="Urgent: Verify Your Account">
+    <label for="body">Body</label>
+    <textarea id="body" placeholder="Paste the email text here..."></textarea>
+
+    <button id="analyzeBtn">Analyze Email</button>
+  </div>
+
+  <div id="error" class="card err hidden"></div>
+
+  <div id="result" class="card hidden">
+    <span id="status" class="badge"></span>
+    <div style="margin-top:14px"><strong>Risk score: <span id="scoreText"></span>/100</strong></div>
+    <div class="bar"><div id="fill" class="fill"></div></div>
+
+    <h3>Suspicious words</h3>
+    <div id="words" class="chips"></div>
+
+    <h3>Explanation</h3>
+    <div id="explanation"></div>
+
+    <h3>Safety recommendations</h3>
+    <ul id="recs"></ul>
+  </div>
+</div>
+
+<script>
+  // Change this if your service runs somewhere else
+  const API_URL = "http://localhost:8000/analyze";
+
+  const SAMPLES = [
+    { label: "Phishing", senderEmail: "support@paypal-security.com", subject: "Urgent: Verify Your Account",
+      body: "Your account will be suspended in 24 hours. Click here to verify credentials and confirm your password to restore access." },
+    { label: "Spam", senderEmail: "winner@lucky-lottery-prize.xyz", subject: "Congratulations! You won $1,000,000",
+      body: "You are our lucky lottery winner! Claim reward now by replying with your full name and address." },
+    { label: "Promotional", senderEmail: "deals@amazon.in", subject: "Weekend Sale: Up to 50% off electronics",
+      body: "Check out our biggest weekend deals. Free shipping on orders above Rs. 499. Unsubscribe anytime using the link at the bottom of this email." },
+    { label: "Safe", senderEmail: "rahul.sharma@mycompany.com", subject: "Meeting notes from today",
+      body: "Hi team, attached are the notes from today's meeting. Please review them before Friday." }
+  ];
+
+  const $ = id => document.getElementById(id);
+  const COLORS = { SAFE: "#16a34a", PROMOTIONAL: "#d97706", SPAM: "#ea580c", PHISHING: "#dc2626" };
+
+  SAMPLES.forEach(s => {
+    const b = document.createElement("button");
+    b.className = "sample";
+    b.textContent = s.label;
+    b.onclick = () => {
+      $("sender").value = s.senderEmail;
+      $("subject").value = s.subject;
+      $("body").value = s.body;
+    };
+    $("samples").appendChild(b);
+  });
+
+  function showError(msg) {
+    $("result").classList.add("hidden");
+    $("error").textContent = msg;
+    $("error").classList.remove("hidden");
+  }
+
+  $("analyzeBtn").onclick = async () => {
+    const payload = {
+      senderEmail: $("sender").value.trim(),
+      subject: $("subject").value.trim(),
+      body: $("body").value.trim()
+    };
+    if (!payload.senderEmail || !payload.subject || !payload.body) {
+      return showError("Please fill in sender, subject and body.");
+    }
+
+    $("error").classList.add("hidden");
+    $("analyzeBtn").disabled = true;
+    $("analyzeBtn").textContent = "Analyzing... (can take up to 20 seconds)";
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 65000);
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      if (!res.ok) {
+        throw new Error(res.status === 503
+          ? "The analysis service is temporarily unavailable. Try again later."
+          : "Request failed with status " + res.status);
+      }
+      render(await res.json());
+    } catch (e) {
+      showError(e.name === "AbortError"
+        ? "The request took too long. Please try again."
+        : (e.message === "Failed to fetch"
+            ? "Cannot reach the AI service. Is uvicorn running on port 8000?"
+            : e.message));
+    } finally {
+      clearTimeout(timer);
+      $("analyzeBtn").disabled = false;
+      $("analyzeBtn").textContent = "Analyze Email";
+    }
+  };
+
+  // textContent is used everywhere so email or AI text can never inject HTML
+  function render(r) {
+    $("status").textContent = r.status;
+    $("status").className = "badge " + r.status;
+    $("scoreText").textContent = r.riskScore;
+    $("fill").style.width = r.riskScore + "%";
+    $("fill").style.background = COLORS[r.status] || "#6b7280";
+
+    $("words").replaceChildren();
+    if (r.suspiciousWords.length === 0) {
+      $("words").textContent = "None found";
+    } else {
+      r.suspiciousWords.forEach(w => {
+        const s = document.createElement("span");
+        s.textContent = w;
+        $("words").appendChild(s);
+      });
+    }
+
+    $("explanation").textContent = r.explanation;
+
+    $("recs").replaceChildren();
+    r.recommendations.forEach(t => {
+      const li = document.createElement("li");
+      li.textContent = t;
+      $("recs").appendChild(li);
+    });
+
+    $("result").classList.remove("hidden");
+  }
+</script>
+</body>
+</html>
