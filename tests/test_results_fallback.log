@@ -1,0 +1,24 @@
+MailGuard AI test run - 2026-11-10 09:44:39 - mode: FALLBACK ONLY
+-----------------------------------------------------------------------------------------------
+#1  PASS  expected=SAFE         got=SAFE         score=8    0.0s
+#2  PASS  expected=SAFE         got=SAFE         score=8    0.0s
+#3  PASS  expected=SAFE         got=SAFE         score=8    0.0s
+#4  PASS  expected=SAFE         got=SAFE         score=8    0.0s
+#5  PASS  expected=SAFE         got=SAFE         score=8    0.0s
+#6  PASS  expected=SPAM         got=SPAM         score=85   0.0s
+#7  PASS  expected=SPAM         got=SPAM         score=63   0.0s
+#8  FAIL  expected=SPAM         got=SAFE         score=16   0.0s got_status=SAFE score_out_of_range(50-85)
+#9  PASS  expected=SPAM         got=SPAM         score=71   0.0s
+#10 PASS  expected=SPAM         got=SPAM         score=71   0.0s
+#11 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=40   0.0s
+#12 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=35   0.0s
+#13 FAIL  expected=PROMOTIONAL  got=SAFE         score=8    0.0s got_status=SAFE score_out_of_range(20-50)
+#14 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=35   0.0s
+#15 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=50   0.0s
+#16 PASS  expected=PHISHING     got=PHISHING     score=100  0.0s
+#17 PASS  expected=PHISHING     got=PHISHING     score=95   0.0s
+#18 PASS  expected=PHISHING     got=PHISHING     score=95   0.0s
+#19 PASS  expected=PHISHING     got=PHISHING     score=83   0.0s
+#20 FAIL  expected=PHISHING     got=SAFE         score=16   0.0s got_status=SAFE score_out_of_range(75-100)
+
+Result: 17/20 passed
