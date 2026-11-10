@@ -5,27 +5,29 @@ from app.schemas import AnalysisResponse, EmailRequest
 
 # Words that suggest credential or account theft
 PHISHING_KEYWORDS = [
-    "urgent", "verify your account", "verify", "password", "otp",
+    "urgent", "urgently", "verify your account", "verify", "password", "otp",
     "one-time password", "suspended", "account locked", "confirm your identity",
-    "security alert", "credentials", "bank account", "card number", "cvv",
-    "update your payment", "click here", "login",
+    "security alert", "credentials", "bank account", "bank details", "card number",
+    "cvv", "update your payment", "click here", "login", "log in", "sign in",
+    "on hold", "blocked", "expires today", "kyc",
 ]
 
-# Words that suggest junk or scam mail
 SPAM_KEYWORDS = [
     "lottery", "winner", "you have won", "claim reward", "claim your prize",
-    "congratulations", "million", "free gift", "work from home",
+    "congratulations", "million", "million dollars", "free gift", "work from home",
     "earn money", "guaranteed", "act now", "no investment", "inheritance",
+    "dear friend", "business proposal", "prince", "no experience needed",
 ]
 
-# Words that suggest genuine marketing mail
 PROMO_KEYWORDS = [
     "sale", "discount", "% off", "offer", "unsubscribe", "newsletter",
     "deal", "coupon", "limited time", "free shipping", "new arrivals",
+    "weekly", "digest", "email preferences",
 ]
 
 # Words that make a sender domain look like an imitation of a trusted one
-SUSPICIOUS_DOMAIN_WORDS = ["security", "verify", "secure", "login", "support", "account", "update"]
+SUSPICIOUS_DOMAIN_WORDS = ["security", "verify", "secure", "login", "support",
+                           "account", "update", "portal", "billing", "help"]
 SUSPICIOUS_TLDS = (".xyz", ".top", ".click", ".tk", ".gq", ".ml", ".cf", ".work", ".buzz")
 
 # Words that point to credential theft specifically
@@ -96,7 +98,7 @@ def fallback_classify(email: EmailRequest) -> AnalysisResponse:
             ],
         )
 
-    if len(promo_hits) >= 2:
+    if len(promo_hits) >= 2 or "unsubscribe" in [h.lower() for h in promo_hits]:
         return AnalysisResponse(
             status="PROMOTIONAL",
             riskScore=min(50, 25 + len(promo_hits) * 5),
