@@ -21,7 +21,7 @@ SCORE_RANGES = {
     "PHISHING": (75, 100),
 }
 
-MAX_ATTEMPTS = 3  # 1 first try + 2 retries
+MAX_ATTEMPTS = 2 # 1 first try + 1 retries
 
 
 class ClassificationError(Exception):
