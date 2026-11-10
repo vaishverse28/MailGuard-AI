@@ -5,7 +5,7 @@ from google import genai
 load_dotenv()
 
 api_key = os.getenv("LLM_API_KEY")
-model = os.getenv("LLM_MODEL", "gemini-2.5-flash")
+model = os.getenv("LLM_MODEL", "gemini-3.8-flash")
 
 if not api_key:
     raise SystemExit("LLM_API_KEY not found. Check your .env file.")

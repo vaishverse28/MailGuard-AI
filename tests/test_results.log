@@ -1,24 +1,26 @@
-MailGuard AI test run - 2026-11-10 10:02:15 - mode: FULL (LLM + fallback)
+MailGuard AI test run - 2026-11-10 14:17:51 - mode: FULL (LLM + fallback)
 -----------------------------------------------------------------------------------------------
-#1  PASS  expected=SAFE         got=SAFE         score=8   12.9s
-#2  PASS  expected=SAFE         got=SAFE         score=8   17.3s
-#3  PASS  expected=SAFE         got=SAFE         score=8   12.9s
-#4  PASS  expected=SAFE         got=SAFE         score=8    8.2s
-#5  PASS  expected=SAFE         got=SAFE         score=8   10.1s
-#6  PASS  expected=SPAM         got=SPAM         score=85  10.0s
-#7  PASS  expected=SPAM         got=SPAM         score=71  36.2s
-#8  PASS  expected=SPAM         got=SPAM         score=85   8.6s
-#9  PASS  expected=SPAM         got=SPAM         score=71   8.0s
-#10 PASS  expected=SPAM         got=SPAM         score=71  11.8s
-#11 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=40  10.8s
-#12 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=35   7.8s
-#13 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=45   8.9s
-#14 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=35  10.5s
-#15 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=50  10.9s
-#16 PASS  expected=PHISHING     got=PHISHING     score=100 3208.3s
-#17 PASS  expected=PHISHING     got=PHISHING     score=100 36.0s
-#18 PASS  expected=PHISHING     got=PHISHING     score=100  6.0s
-#19 PASS  expected=PHISHING     got=PHISHING     score=91   6.0s
-#20 PASS  expected=PHISHING     got=PHISHING     score=100  6.0s
+#1  PASS  expected=SAFE         got=SAFE         score=5   65.9s  via=LLM
+#2  PASS  expected=SAFE         got=SAFE         score=5   45.5s  via=LLM
+#3  PASS  expected=SAFE         got=SAFE         score=5   68.3s  via=LLM
+#4  PASS  expected=SAFE         got=SAFE         score=5   37.7s  via=LLM
+#5  PASS  expected=SAFE         got=SAFE         score=5   38.1s  via=LLM
+#6  FAIL  expected=SPAM         got=PHISHING     score=95  28.1s  via=LLM got_status=PHISHING score_out_of_range(50-85)
+#7  FAIL  expected=SPAM         got=PHISHING     score=95  38.9s  via=LLM got_status=PHISHING score_out_of_range(50-85)
+#8  PASS  expected=SPAM         got=SPAM         score=85  44.5s  via=LLM
+#9  PASS  expected=SPAM         got=SPAM         score=80  64.9s  via=LLM
+#10 FAIL  expected=SPAM         got=PHISHING     score=95  17.6s  via=LLM got_status=PHISHING score_out_of_range(50-85)
+#11 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=20  11.1s  via=LLM
+#12 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=20  39.6s  via=LLM
+#13 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=20  10.5s  via=LLM
+#14 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=25  11.1s  via=LLM
+#15 PASS  expected=PROMOTIONAL  got=PROMOTIONAL  score=25  10.8s  via=LLM
+#16 PASS  expected=PHISHING     got=PHISHING     score=95   9.9s  via=LLM
+#17 PASS  expected=PHISHING     got=PHISHING     score=95   9.8s  via=LLM
+#18 PASS  expected=PHISHING     got=PHISHING     score=95  12.0s  via=LLM
+#19 PASS  expected=PHISHING     got=PHISHING     score=95   9.5s  via=LLM
+#20 PASS  expected=PHISHING     got=PHISHING     score=95  17.1s  via=LLM
 
-Result: 20/20 passed
+Answered by LLM: 20/20
+
+Result: 17/20 passed

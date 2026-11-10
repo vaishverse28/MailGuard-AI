@@ -46,6 +46,7 @@ def run(use_fallback_only: bool = False):
                     raise RuntimeError(f"HTTP {resp.status_code}: {resp.text[:100]}")
                 data = resp.json()
             elapsed = time.time() - started
+            source = "FALLBACK" if "basic keyword check" in data.get("explanation", "") else "LLM"
 
             missing = REQUIRED_FIELDS - set(data)
             low, high = SCORE_RANGES[s["expected"]]
@@ -64,7 +65,7 @@ def run(use_fallback_only: bool = False):
             line = (
                 f"#{s['id']:<2} {result}  expected={s['expected']:<12} "
                 f"got={data.get('status'):<12} score={data.get('riskScore'):<3} "
-                f"{elapsed:4.1f}s{note}"
+                f"{elapsed:4.1f}s  via={source}{note}"
             )
         except Exception as e:
             ok = False
@@ -74,7 +75,11 @@ def run(use_fallback_only: bool = False):
         lines.append(line)
         print(line)
         if not use_fallback_only:
-            time.sleep(2)  # be gentle with the free-tier rate limit
+            time.sleep(2) # be gentle with the free-tier rate limit
+    
+    llm_count = sum(1 for l in lines if "via=LLM" in l)
+    lines.append(f"\nAnswered by LLM: {llm_count}/{len(samples)}")
+    print(f"\nAnswered by LLM: {llm_count}/{len(samples)}")
 
     summary = f"\nResult: {passed}/{len(samples)} passed"
     lines.append(summary)
