@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Email - MailGuard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="analyzer">
+    <main>
+        <h1>Analyze Your Email</h1>
+        <p class="sub">Paste the email below and let the AIcheck it for spam and phishing.</p>
+        <form class="card" id="af" novalidate style="max-width:760px">
+            <label>Sender Email Address :</label>
+            <input name="sender" placeholder="sender@example.com">
+            <div class="err" data-e="sender"></div>
+            <label>Email Subject :</label>
+            <input name="subject" placeholder="Subject line">
+            <div class="err" data-e="subject"></div>
+            <label>Email Body :</label>
+            <textarea name="body" rows="5" placeholder="Paste the complete email body here"></textarea>
+            <div class="err" style="margin: 20px 0 0">
+                <button class="btn" id="go">Analyze Email</button>
+                <button type="button" class="btn ghost" id="clr">Clear</button>
+            </div>
+        </form>
+    </main>
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/analyzer.js"></script>
+</body>
+</html>

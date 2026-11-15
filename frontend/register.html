@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MailGuard AI</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="brand">
+        "🛡 MailGuard AI"
+        <small>Smarter emails. Safer you.</small>
+    </div>
+    <form class="box" id="rf" novalidate>
+        <h1>Create Account</h1>
+        <p class="sub">Start detecting spam and phishing</p><br>
+        <label>Full Name :</label>
+        <input name="name" placeholder="Your full name">
+        <div class="err" data-e="name"></div><br>
+        <label>Email Address :</label>
+        <input name="email" type="email" placeholder="you@company.com">
+        <div class="err" data-e="email"></div><br>
+        <label>Password :</label>
+        <input name="password" type="password" placeholder="At least 6 characters">
+        <div class="err" data-e="password"></div><br>
+        <label>Confirm Password :</label>
+        <input name="confirm" type="password" placeholder="Repeat password">
+        <div class="err" data-e="confirm"></div><br>
+        <button class="btn">Create Account</button>
+        <p class="row" style="justify-content:center">
+            "Already have an account?&nbsp;"
+            <a href="login.html"></a>
+        </p>
+    </form>
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>    
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard - MailGuard AI </title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="dashboard">
+    <main>
+        <h1>
+            "Welcome back,"
+            <span id="wn"></span>
+            "👋"
+        </h1>
+        <p class="sub">Your AI assistant for a safer indox.</p>
+        <div class="grid" id="stats"></div>
+        <div class="grid g2" id="charts">
+            <div class="card">
+                <h3>Weekly Email Scans</h3>
+                <div class="ch">
+                    <canvas id="week">
+                </div>
+            </div>
+            <div>
+                <h3>Safe vs Spam</h3>
+                <div class="ch">
+                    <canvas id="pie">
+                </div>
+            </div>
+        </div>
+        <div class="card tw">
+            <div class="bar" style="justify-content: space-between">
+                <h3>Recent Activity</h3>
+                <a href="history.html">View all</a>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Sender</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </main>
+    <script src="https://jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+:root{--navy:#101B35;--blue:#2563EB;--bg:#F4F7FC;--green:#16A34A;--red:#DC2626;--orange:#EA580C;--txt:#0f172a;--mut:#64748b;--bd:#e2e8f0}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--txt);font-size:14px;line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+.sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:var(--navy);padding:20px 14px;display:flex;flex-direction:column;gap:4px;z-index:20;transition:transform .25s}
+.logo{color:#fff;font-weight:700;font-size:20px;padding:4px 10px 22px}.logo b{color:#60a5fa}
+.sidebar a{color:#cbd5e1;padding:11px 12px;border-radius:8px;display:flex;gap:10px;transition:.2s}
+.sidebar a:hover,.sidebar a.on{background:var(--blue);color:#fff}.sidebar .out{margin-top:auto}
+.wrap{margin-left:240px}
+.top{height:64px;background:#fff;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:14px;padding:0 24px;position:sticky;top:0;z-index:10}
+.top input{flex:1;max-width:420px;background:var(--bg)}
+.av{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:600}
+.burger{display:none;background:none;border:0;font-size:22px;cursor:pointer}
+main{padding:24px}h1{font-size:22px}h3{font-size:15px;margin-bottom:10px}.sub{color:var(--mut);margin:4px 0 20px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin-bottom:16px}.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(16,27,53,.08);transition:box-shadow .2s}.card:hover{box-shadow:0 6px 18px rgba(16,27,53,.1)}
+.stat{border-top:3px solid var(--blue)}.stat.g{border-color:var(--green)}.stat.r{border-color:var(--red)}.stat.o{border-color:var(--orange)}
+.stat span{color:var(--mut)}.stat b{display:block;font-size:28px}
+.btn{background:var(--blue);color:#fff;border:0;padding:10px 18px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600;transition:.2s;display:inline-block}
+.btn:hover{background:#1d4ed8}.btn.ghost{background:#fff;color:var(--txt);border:1px solid var(--bd)}.btn.red{background:var(--red)}
+label{display:block;font-weight:600;margin:14px 0 6px}
+input,textarea,select{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;font:inherit}
+input:focus,textarea:focus,select:focus{outline:2px solid #bfdbfe;border-color:var(--blue)}
+.err{color:var(--red);font-size:12px;margin-top:4px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--bd)}th{color:var(--mut);font-size:12px}
+.tw{overflow-x:auto}.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.bar input,.bar select{width:auto;flex:1;min-width:150px}
+.badge{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600}
+.badge.safe{background:#dcfce7;color:var(--green)}.badge.spam{background:#fee2e2;color:var(--red)}.badge.phishing{background:#ffedd5;color:var(--orange)}
+.banner{border-radius:12px;padding:22px;margin-bottom:16px}.banner.safe{background:#dcfce7;color:var(--green)}.banner.spam{background:#fee2e2;color:var(--red)}.banner.phishing{background:#ffedd5;color:var(--orange)}
+.meter{height:10px;background:var(--bd);border-radius:9px}.meter i{display:block;height:100%;border-radius:9px}
+.chip{display:inline-block;background:#fee2e2;color:var(--red);padding:3px 10px;border-radius:6px;margin:3px 3px 0 0}
+.ch{position:relative;height:260px}ul{padding-left:18px}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--navy);color:#fff;padding:12px 18px;border-radius:8px;z-index:99}
+.spin{width:16px;height:16px;border:3px solid #fff6;border-top-color:#fff;border-radius:50%;animation:s .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}@keyframes s{to{transform:rotate(360deg)}}
+@media(max-width:860px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:none}.wrap{margin-left:0}.burger{display:block}main{padding:16px}.top{padding:0 14px}.top span:last-child{display:none}}

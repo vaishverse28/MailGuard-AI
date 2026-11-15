@@ -1,0 +1,15 @@
+const form=document.getElementById("analyzeForm");if(form)form.addEventListener("submit",async e=>{e.preventDefault();const sender=document.getElementById("senderEmail").value.trim(),subject=document.getElementById("emailSubject").value.trim(),body=document.getElementById("emailBody").value.trim(),msg=document.getElementById("analyzeMessage"),loading=document.getElementById("analyzeLoading"),btn=document.getElementById("analyzeBtn");
+    msg.textContent="";if(!sender||!subject||!body){msg.textContent="Please complete all fields.";return;}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sender)){msg.textContent="Enter a valid sender email address.";
+        return;}btn.disabled=true;
+    loading.classList.add("show");
+let result;try{result=await apiRequest("/api/emails/analyze",{method:"POST",body:JSON.stringify({senderEmail:sender,subject,body})});}catch(err){result=demoAnalyze(sender,subject,body);}finally{loading.classList.remove("show");btn.disabled=false;}
+const record={id:Date.now().toString(),sender,subject,body,status:(result.status||result.classification||"safe").toLowerCase(),risk:Number(result.riskScore??result.risk??0),words:result.suspiciousWords||result.words||[],explanation:result.explanation||"This result was generated in demo mode. Connect the AI backend to receive a trained model explanation.",recommendations:result.recommendations||["Verify the sender using a trusted contact method.","Avoid opening unexpected links or attachments.","Never share passwords or one-time verification codes."],date:new Date().toISOString()};
+    if(!["safe","spam","phishing"].includes(record.status))record.status="spam";
+const history=JSON.parse(localStorage.getItem("mg_history")||"[]");
+    history.unshift(record);localStorage.setItem("mg_history",JSON.stringify(history));
+    localStorage.setItem("mg_selected",record.id);location.href="result.html";});
+function demoAnalyze(sender,subject,body){const text=(sender+" "+subject+" "+body).toLowerCase(),patterns=["urgent","verify your account","password","claim reward","winner","click here","limited time","bank details","suspended","payment required","login immediately"],words=patterns.filter(w=>text.includes(w));
+const suspiciousDomain=/\.(xyz|top|click|work)$/i.test(sender.split("@")[1]||"");
+const score=Math.min(96,words.length*16+(suspiciousDomain?25:5));
+const status=score>=55?"phishing":score>=20?"spam":"safe";
+    return{status,riskScore:score,suspiciousWords:words,explanation:status==="safe"?"No strong demo keyword indicators were found. This is not a guarantee that the email is safe.":"The message contains one or more common urgency, credential, reward, or suspicious-domain indicators. This simple demo rule is not a trained AI model.",recommendations:status==="safe"?["Still verify unexpected requests independently.","Do not share passwords or verification codes."]:["Do not click links or download unexpected attachments.","Verify the sender through an official website or known contact.","Do not provide passwords, banking details, or one-time codes."]};}

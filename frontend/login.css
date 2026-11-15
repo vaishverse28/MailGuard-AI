@@ -1,0 +1,9 @@
+body.auth{min-height:100vh;display:flex;align-items:center;gap:40px;padding:5vw;flex-wrap:wrap;background:radial-gradient(circle at 15% 25%,#2d1f73,#0b1020 62%);color:#fff}
+.brand{font-size:40px;font-weight:700;flex:1;min-width:260px}.brand small{display:block;font-size:16px;font-weight:400;color:#a5b4fc;margin-top:8px}
+.box{width:100%;max-width:420px;margin-left:auto;background:rgba(255,255,255,.08);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:32px}
+.box input{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.22);border-radius:99px;padding:12px 18px}
+.box .btn{width:100%;border-radius:99px;background:#7c3aed;padding:13px;margin-top:22px}.box .btn:hover{background:#6d28d9}
+.box a{color:#c4b5fd}.box .err{color:#fca5a5}.box .sub{color:#c7d2fe}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:13px}.row label{margin:0;font-weight:400}.row input{width:auto}
+.pw{position:relative}.eye{position:absolute;right:16px;top:11px;cursor:pointer}
+@media(max-width:700px){.box{margin:0 auto}}

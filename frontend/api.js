@@ -1,0 +1,10 @@
+const API_BASE_URL = ""; 
+async function apiRequest(path, options = {}) {
+  if (!API_BASE_URL) throw new Error("Backend is not connected. Demo mode is active.");
+  const response = await fetch(${API_BASE_URL} ${path}, {
+    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+    ...options
+  });
+  if (!response.ok) throw new Error(Request failed (${response. status}));
+  return response.status === 204 ? null : response.json();
+}

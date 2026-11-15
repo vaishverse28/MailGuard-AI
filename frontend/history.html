@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History MailGuard AI</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="history">
+    <main>
+        <h1>Email History</h1>
+        <p class="sub">Every email you have analyzed.</p>
+        <div class="card tw">
+            <div class="bar">
+                <input id="q" placeholder="Search by subject or sender">
+                <select id="fl">
+                    <option value>All results</option>
+                    <option value="SAFE">Safe</option>
+                    <option value="SPAM">Spam</option>
+                    <option value="PHISHING">phishing</option>
+                </select>
+                <select id="so">
+                    <option value="new">Newest first</option>
+                    <option value="old">Oldest first</option>
+                </select>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Sender</th>
+                        <th>Subject</th>
+                        <th>result</th>
+                        <th>Risk</th>
+                        <th>Date & time</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tb"></tbody>
+            </table>
+        </div>
+    </main>
+    <script src="../js/api.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/history.js"></script>
+</body>
+</html>

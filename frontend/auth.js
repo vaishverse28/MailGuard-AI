@@ -1,0 +1,25 @@
+const getUser = () => JSON.parse(localStorage.getItem("mg_user") || "null");
+function showMessage(id, message, success=false){const el=document.getElementById(id);
+    if(el){el.textContent=message;
+    el.className=success?"form-message success":"form-message";}}
+const loginForm=document.getElementById("loginForm");
+    if(loginForm) loginForm.addEventListener("submit",e=>{e.preventDefault();
+const email=document.getElementById("loginEmail").value.trim();
+const password=document.getElementById("loginPassword").value; if(!email||!password)return showMessage("loginMessage","Please fill in all fields.");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return showMessage("loginMessage","Please enter a valid email address.");
+    if(password.length<6)return showMessage("loginMessage","Password must contain at least 6 characters.");
+const saved=JSON.parse(localStorage.getItem("mg_account")||"null");
+    if(saved&&(saved.email!==email||saved.password!==password))return showMessage("loginMessage","Email or password is incorrect.");
+    localStorage.setItem("mg_user",JSON.stringify({name:saved?.name||email.split("@")[0],email}));
+    location.href="pages/dashboard.html";});
+const registerForm=document.getElementById("registerForm");
+    if(registerForm) registerForm.addEventListener("submit",e=>{e.preventDefault();
+const name=document.getElementById("fullName").value.trim(),email=document.getElementById("regEmail").value.trim(),pass=document.getElementById("regPassword").value,confirm=document.getElementById("confirmPassword").value;
+    if(!name||!email||!pass||!confirm)return showMessage("registerMessage","Please complete all fields.");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return showMessage("registerMessage","Enter a valid email address.");
+    if(pass.length<6)return showMessage("registerMessage","Password must be at least 6 characters.");
+    if(pass!==confirm)return showMessage("registerMessage","Passwords do not match.");
+    localStorage.setItem("mg_account",JSON.stringify({name,email,password:pass}));localStorage.setItem("mg_user",JSON.stringify({name,email}));
+    location.href="dashboard.html";});
+    document.getElementById("forgotLink")?.addEventListener("click",e=>{e.preventDefault();
+    showMessage("loginMessage","Password reset will be available after backend integration.");});

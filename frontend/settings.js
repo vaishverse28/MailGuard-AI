@@ -1,0 +1,24 @@
+const account=JSON.parse(localStorage.getItem("mg_account")||"null"),activeUser=JSON.parse(localStorage.getItem("mg_user")||"null");
+if(document.getElementById("profileName")){document.getElementById("profileName").value=activeUser?.name||"";
+    document.getElementById("profileEmail").value=activeUser?.email||"";}
+    document.getElementById("profileForm")?.addEventListener("submit",e=>{e.preventDefault();
+        const name=document.getElementById("profileName").value.trim();if(!name)return;
+        const u={...activeUser,name};
+        localStorage.setItem("mg_user",JSON.stringify(u));
+        if(account){account.name=name;
+            localStorage.setItem("mg_account",JSON.stringify(account));}document.getElementById("profileMessage").textContent="Profile updated.";
+document.getElementById("profileMessage").classList.add("success");});
+document.getElementById("passwordForm")?.addEventListener("submit",e=>{e.preventDefault();
+    const p=document.getElementById("newPassword").value,c=document.getElementById("confirmNewPassword").value,m=document.getElementById("passwordMessage");
+    if(p.length<6||p!==c){m.textContent=p!==c?"Passwords do not match.":"Password must be at least 6 characters.";
+    return;
+    }if(account){account.password=p;localStorage.setItem("mg_account",JSON.stringify(account));
+    }m.textContent="Password updated in this demo browser.";
+    m.classList.add("success");
+    e.target.reset();
+    });
+    ["notifications","compactMode"].forEach(id=>{const el=document.getElementById(id);
+        el.checked=localStorage.getItem("mg_"+id)==="true";
+        el.addEventListener("change",()=>{localStorage.setItem("mg_"+id,el.checked);
+            document.getElementById("preferenceMessage").textContent="Preference saved.";
+    document.getElementById("preferenceMessage").classList.add("success");});});
