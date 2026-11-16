@@ -129,11 +129,10 @@ sequenceDiagram
 
 | Member | Role | Owns | GitHub |
 |---|---|---|---|
-| **Member 1** – Samrudhhi PAwar | Frontend Developer | `frontend/` – all pages, JavaScript, charts, API integration | [@username](https://github.com/samruddhipawar323) |
+| **Member 1** – Samruddhi Pawar | Frontend Developer | `frontend/` – all pages, JavaScript, charts, API integration | [@username](https://github.com/samruddhipawar323) |
 | **Member 2** – Vaishnav Salunke | Backend Developer | `backend/` – REST APIs, MySQL, auth, AI integration, Postman | [@username](https://github.com/vaishverse28) |
 | **Member 3** – Shantanu Pawar | AI Developer | `ai-service/` – classifier, prompt, fallback, tests | [@username](https://github.com/pawarshantanu858-maker) |
 
-> ✏️ Replace the placeholder names and GitHub handles above.
 
 ---
 
@@ -144,7 +143,7 @@ All three parts live in **one repository** (monorepo). Each member works inside 
 ```
 MailGuard-AI/
 │
-├── frontend/                          # 🎨 Samrudhhi Pawar
+├── frontend/                          # 🎨 Samruddhi Pawar
 │   ├── index.html
 │   ├── pages/
 │   │   ├── login.html
